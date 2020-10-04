@@ -13,5 +13,5 @@ jobs:
       - name: Ingests data from Discord
         run: |
           python3 -m pip install -r requirements.txt
-          python3 generate_service_account.py
-          python3 main.py
+          GOOGLE_SERVICE_ACCOUNT=${{ secrets.GOOGLE_SERVICE_ACCOUNT }} python3 generate_service_account.py
+          DISCORD_TOKEN=${{ secrets.DISCORD_TOKEN }} GOOGLE_SHEET_ID=${{ secrets.GOOGLE_SHEET_ID }} python3 main.py
