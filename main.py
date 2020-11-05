@@ -49,15 +49,21 @@ class StatisticsIngest(discord.Client):
 
     """ Ingests the statistics by saving to Google Sheet. """
     def ingest_statistics(self):
+        member_count = self.get_member_count()
+        member_count_change = self.get_member_count_change()
+
         self.worksheet.add_rows(1)
         self.worksheet.append_row([
             f"{self.today.year}/{self.today.month}/{self.today.day}",
-            self.get_member_count(),
-            self.get_member_count_change()
+            member_count,
+            member_count_change
         ])
 
         log("Successfully ingested statistics.")
 
+
+intents = discord.Intents.default()
+intents.members = True
 
 app = StatisticsIngest()
 app.run(os.environ['DISCORD_TOKEN'])
